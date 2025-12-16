@@ -1,4 +1,11 @@
-import pandas as pd
+from import_ranking import ranking_df, countries
 
-# Input CSV file.
-df = pd.read_csv('ranking.csv')
+def main():
+    # for i in range(4, 104):
+    #     print(ranking_df[i])
+    # print(countries)
+    # print(len(countries))
+    print("Welcome to the Analyzer250")
+
+if __name__ == "__main__":
+    main()
