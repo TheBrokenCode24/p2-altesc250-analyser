@@ -3,7 +3,7 @@ This is the main program where the user will analyze the ranking sheet.
 """
 
 # Imports the ranking and list of countries to this program.
-from import_ranking import ranking_df, countries_df, years_df, ranking_1769_df, countries, users_1769, all_users
+from import_ranking import ranking_df, countries_df, years_df, ranking_1769_df, countries, users
 
 # Function prints out the entire ranking based on averages from all users.
 def entire_ranking(ranking=ranking_df):
@@ -21,22 +21,30 @@ def entire_ranking_1769(ranking=ranking_1769_df):
 
 # Function prints out the averages of each year.
 def all_year_average(ranking=years_df):
-    print("All Years Ranked by Averages")
+    print("\nAll Years Ranked by Averages:")
     for n in range(len(ranking)):
         year = ranking[n]
         print(f"{year[0]}. {year[1]} - {year[2]}")
 
 # Function prints out the averages of each country.
 def all_country_average(ranking=countries_df):
-    print("All Countries Ranked by Averages")
+    print("\nAll Countries Ranked by Averages:")
     for n in range(len(ranking)):
         country = ranking[n]
         print(f"{country[0]}. {country[2]} - {country[3]}")
 
+def print_all_users(users=users):
+    print("\nAll Participating Users:")
+    for n in range(len(users)):
+        users_list = list(users.keys())
+        user = users_list[n]
+        user_num_entries = users[user]
+        print(f" - {users_list[n]}: Ranked {user_num_entries} Songs")
+
 # Main function containing the main program.
 def main():
     # Print statements
-    print("Welcome to the Analyzer250!\n\n")
+    print("\nWelcome to the Analyzer250!\n")
     print("What would you like to get from the ranking of ALTESC250 2024?\n")
     
     # Choices
@@ -60,7 +68,13 @@ def main():
     # 14. All the entries from a specific country ranked from those who ranked all the songs.
     # 15. All the entries from a specific country ranked from a specific user.
     print("5 - All the entries from a specific country ranked.")
-    
+    # 16. A specific entry's overall result.
+    # 17. A specific entry's result on someone's ranking.
+    # 18. List of a specific placement range of the ranking.
+    # 19. A specific placement's entry.
+    # 20. A country's highest/lowest/most average result.
+    # 21. Return the list of users who participated in the ranking.
+
     # Gets user input
     choice1 = input("Type in the number associated with the choice you want: ")
     
@@ -97,7 +111,7 @@ def main():
         elif choice2 == 2:
             entire_ranking_1769()
         else:
-            pass
+            print_all_users()
     elif choice1 == 2:
         all_year_average()
     elif choice1 == 3:

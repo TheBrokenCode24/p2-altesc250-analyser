@@ -22,10 +22,8 @@ years_df = pd.read_csv("years.csv").values.tolist()
 ranking_1769_df = pd.read_csv("club_1769.csv").values.tolist()
 # List of countries is empty, but will be appended.
 countries = []
-# List of the users who ranked all the songs.
-users_1769 = {}
-# List of the users who didn't rank all the songs.
-all_users = {}
+# List of all the users.
+users = {}
 
 # Adds all the countries to the list of countries.
 for row in ranking_df:
@@ -35,12 +33,6 @@ for row in ranking_df:
 countries.pop(0)
 
 # Appends the dictionary containing the participating users and how many entries they ranked.
-for k in range(17, len(ranking_1769_df[1])):
-    user = ranking_1769_df[1][k]
-    users_1769[user] = 1769
-
-for m in range(17, len(ranking_df[1])):
-    if ranking_df[0][m] == "1769":
-        continue
-    user2 = ranking_df[1][m]
-    all_users[user2] = ranking_df[0][m]
+for k in range(17, len(ranking_df[1])):
+    us = ranking_df[1][k]
+    users[us] = int(ranking_df[0][k])
