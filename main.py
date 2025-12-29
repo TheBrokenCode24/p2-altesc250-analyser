@@ -76,7 +76,7 @@ def main():
     # 21. Return the list of users who participated in the ranking.
 
     # Gets user input
-    choice1 = input("Type in the number associated with the choice you want: ")
+    choice1 = input("\nType in the number associated with the choice you want: ")
     
     # Ensures that the user enters the number listed in the choices
     while choice1 not in [str(c) for c in range(1, 6)]:
