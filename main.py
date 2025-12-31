@@ -3,37 +3,70 @@ This is the main program where the user will analyze the ranking sheet.
 """
 
 # Imports the ranking and list of countries to this program.
-from import_ranking import ranking_df, countries_df, years_df, ranking_1769_df, countries, users
+from import_ranking import ranking_2023, ranking_2024, ranking_2025, countries_2023, countries_2024, countries_2025, years_2023, years_2024, years_2025, ranking_1732_2023, ranking_1769_2024, ranking_1806_2025, countries, users2023, users2024
 
 # Function prints out the entire ranking based on averages from all users.
-def entire_ranking(ranking=ranking_df):
-    print("\nThe Entire Ranking (All Users):")
-    for n in range(4, len(ranking)):
-        entry = ranking[n]
-        print(f"{entry[0]}. {entry[7]} {entry[3]}: {entry[10]} - {entry[11]} - {entry[14]}")
+def entire_ranking(edition, all_rankings=[ranking_2023, ranking_2024, ranking_2025]):
+    # Gets the ranking depending on the edition
+    if edition == 2023:
+        ranking = all_rankings[0]
+    elif edition == 2024:
+        ranking = all_rankings[1]
+    else:
+        ranking = all_rankings[2]
+
+    # Print statement
+    print(f"\nThe Entire Ranking of ALTESC250 {edition} (All Users):")
+    
+    # 2023 and 2024's spreadsheet are in the same format, so they share the same print statement format.
+    # 2025
+    if edition == 2025:
+        for n in range(4, len(ranking)):
+            entry = ranking[n]
+            print(f"{entry[2]}. {entry[8]} {entry[5]}: {entry[10]} - {entry[11]} - {entry[14]}")
+    elif edition == 2023 or edition == 2024:
+        for n in range(4, len(ranking)):
+            entry = ranking[n]
+            print(f"{entry[0]}. {entry[7]} {entry[3]}: {entry[10]} - {entry[11]} - {entry[14]}")
 
 # Function prints out the entire ranking based on averages of all users who ranked all songs.
-def entire_ranking_1769(ranking=ranking_1769_df):
-    print("\nThe Entire Ranking (1769 Club):")
-    for n in range(4, len(ranking)):
-        entry = ranking[n]
-        print(f"{entry[1]}. {entry[8]} {entry[4]}: {entry[11]} - {entry[12]} - {entry[15]}")
+def entire_ranking_all_songs(edition, all_rankings=[ranking_1732_2023, ranking_1769_2024, ranking_1806_2025]):
+    if edition == 2023:
+        ranking = all_rankings[0]
+    elif edition == 2024:
+        ranking = all_rankings[1]
+    else:
+        ranking = all_rankings[2]
+    num_entries = {2023: 1732, 2024: 1769, 2025: 1806}
+    print(f"\nThe Entire Ranking of ALTESC250 {edition} ({num_entries[edition]} Club):")
+    if edition == 2023:
+        for n in range(4, len(ranking)):
+            entry = ranking[n]
+            print(f"{entry[1]}. {entry[8]} {entry[4]}: {entry[11]} - {entry[12]} - {entry[16]}")
+    elif edition == 2024:
+        for n in range(4, len(ranking)):
+            entry = ranking[n]
+            print(f"{entry[1]}. {entry[8]} {entry[4]}: {entry[11]} - {entry[12]} - {entry[15]}")
+    elif edition == 2025:
+        for n in range(4, len(ranking)):
+            entry = ranking[n]
+            print(f"{entry[1]}. {entry[6]} {entry[3]}: {entry[8]} - {entry[9]} - {entry[12]}")
 
 # Function prints out the averages of each year.
-def all_year_average(ranking=years_df):
+def all_year_average(ranking, edition):
     print("\nAll Years Ranked by Averages:")
     for n in range(len(ranking)):
         year = ranking[n]
         print(f"{year[0]}. {year[1]} - {year[2]}")
 
 # Function prints out the averages of each country.
-def all_country_average(ranking=countries_df):
+def all_country_average(ranking, edition):
     print("\nAll Countries Ranked by Averages:")
     for n in range(len(ranking)):
         country = ranking[n]
         print(f"{country[0]}. {country[2]} - {country[3]}")
 
-def print_all_users(users=users):
+def print_all_users(users, edition):
     print("\nAll Participating Users:")
     for n in range(len(users)):
         users_list = list(users.keys())
@@ -45,7 +78,17 @@ def print_all_users(users=users):
 def main():
     # Print statements
     print("\nWelcome to the Analyzer250!\n")
-    print("What would you like to get from the ranking of ALTESC250 2024?\n")
+    print("What edition would you like to analyze the results of ALTESC250 from?")
+    print(" - 2023\n - 2024\n - 2025")
+
+    edition = int(input("Select the year: "))
+
+    while edition not in [2023, 2024, 2025]:
+        print("Select a year that is ACTUALLY from this list here!")
+        print(" - 2023\n - 2024\n - 2025")
+        edition = int(input("Select the year FROM THE LIST: ")) 
+
+    print(f"What would you like to get from the ranking of ALTESC250 {edition}?\n")
     
     # Choices
     # 1. List of the entire ranking. (ranking.csv)
@@ -92,7 +135,10 @@ def main():
         print("\nWhere would you like to get the ranking from?")
         print("1 - All users")
         print("2 - All users who ranked all 1769 songs")
-        print("3 - A specific user")
+        if edition == 2025:
+            print("3 - The organizer's ranking")
+        else:
+            print("3 - A specific user")
 
         # Gets user input
         choice2 = input("Type in the number associated with the choice you want: ")
@@ -107,17 +153,17 @@ def main():
             choice2 = int(choice2)
 
         if choice2 == 1:
-            entire_ranking()
+            entire_ranking(edition)
         elif choice2 == 2:
-            entire_ranking_1769()
-        else:
-            print_all_users()
-    elif choice1 == 2:
-        all_year_average()
-    elif choice1 == 3:
-        all_country_average()
-    elif choice1 == 4:
-        pass
+            entire_ranking_all_songs(edition)
+    #     else:
+    #         print_all_users()
+    # elif choice1 == 2:
+    #     all_year_average()
+    # elif choice1 == 3:
+    #     all_country_average()
+    # elif choice1 == 4:
+    #     pass
 
     
 # This runs the main program.
